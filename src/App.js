@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios"
 
-function App() {
+import React from 'react'
+import { useEffect } from "react"
+import { useState } from "react"
+
+export default function App() {
+const url="http://localhost:8000/"
+  const [data,setdata]=useState([{"1":""}])
+ 
+    useEffect(()=>{
+      axios.get(url).then(res=>{
+
+        setdata(res.data)
+      })
+    },[])
+  
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    
+      <div>{data.map(d=>{
+        return(<h1>
+          <span>{d["Prod_name"]}</span><br/>
+          <span>{d["Trans_id"]}</span><br/>
+          <span>{d["Disp_date"]}</span>
+        </h1>)
+      })}</div>
+    
+   
     </div>
-  );
+  )
 }
-
-export default App;
